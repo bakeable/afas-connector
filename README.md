@@ -71,7 +71,7 @@ The `AfasObject` is a wrapper for updating an item in Afas. The object has an `u
 
 #### Usage
 
-Here's an exampke of how to use the `AfasFilter` class:
+Here's an exampke of how to use the `AfasObject` class:
 
 ```python
 from afas.afas_object import AfasObject
