@@ -27,7 +27,7 @@ class AfasConnector:
             'Authorization': 'AfasToken ' + self.afas_token
         }
 
-    def get(self, endpoint: str, take=1000000, skip=0, filters: list[AfasFilter] | None=None, order_by: str | None=None, ascending=True):
+    def get(self, endpoint: str, take=-1, skip=-1, filters: list[AfasFilter] | None=None, order_by: str | None=None, ascending=True):
         """
         Sends a GET request to the AFAS Connector.
 
