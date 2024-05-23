@@ -47,7 +47,16 @@ class AfasConnector:
             endpoint = "/" + endpoint
 
         # Create the URL
-        url = self.AFAS_CONNECTORS_URL + endpoint + f'?take={take}&skip={skip}'
+        url = self.AFAS_CONNECTORS_URL + endpoint
+
+        # Add query parameters
+        if '?' in url:
+            url += '&'
+        else:
+            url += '?'
+        
+        # Add take and skip
+        url += f'take={take}&skip={skip}'
 
         # Add ordering
         if order_by is not None:
