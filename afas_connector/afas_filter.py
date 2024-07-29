@@ -14,13 +14,12 @@ class AfasFilter:
     ENDS_WITH = 13
     DOES_NOT_END_WITH = 14
     QUICK_FILTER = 15
-
     def __init__(self, field: str, value: any, operator: int = 1):
         """
         Initializes an instance of the AfasFilter class.
 
         Args:
-            field (str): The field to filter on.
+            field (Union[str, list[str]]): The field to filter on.
             value (any): The value(s) to filter on. Can be a single value or a list of values.
             operator (int, optional): The operator to use for the filter. Defaults to EQUAL_TO.
 
@@ -29,7 +28,6 @@ class AfasFilter:
             ValueError: If the value is a list but the operator is not a list.
             ValueError: If the length of the value and operator lists are not equal.
         """
-
         # If value is a list, operator should be a list too and of equal length
         if isinstance(value, list):
             if not isinstance(operator, list):
@@ -45,7 +43,8 @@ class AfasFilter:
         else:
             if not self.operator_is_valid(operator):
                 raise ValueError("Invalid operator")
-        
+
+
         
         # Set the filter properties
         self.field = field

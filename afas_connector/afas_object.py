@@ -11,7 +11,7 @@ class AfasObject:
         fields (dict): The fields of the object.
     """
 
-    def __init__(self, type, fields: dict = {}):
+    def __init__(self, type, fields: dict | None = None, metadata: dict | None = None, objects: list | None = None):
         """Initializes AfasObject with the given parameters.
 
         Args:
@@ -19,17 +19,19 @@ class AfasObject:
             fields (dict, optional): The fields of the object. Defaults to {}.
         """
         self.type = type
-        self.set(fields)
+        self.set(fields, metadata, objects)
 
         self.afas_connector = AfasConnector()
 
-    def set(self, fields: dict):
+    def set(self, fields: dict | None = None, metadata: dict | None = None, objects: list | None = None):
         """Sets the fields of the object.
 
         Args:
             fields (dict): The fields of the object.
         """
         self.fields = fields
+        self.objects = objects
+        self.metadata = metadata
 
     def payload(self):
         """Returns a dictionary representation of the object.
@@ -37,14 +39,24 @@ class AfasObject:
         Returns:
             dict: A dictionary representation of the object.
         """
-        return {
+        p = {
             self.type: {
-                "Element": {
-                    "Fields": self.fields
-                }
+                "Element": {}
             }
         }
-    
+
+        # Append fields to payload
+        if self.metadata is not None:
+            p[self.type]["Element"] = self.metadata
+        
+        if self.fields is not None:
+            p[self.type]["Element"]["Fields"] = self.fields
+        
+        if self.objects is not None:
+            p[self.type]["Element"]["Objects"] = self.objects
+
+        return p
+        
     def update(self):
         """Updates the object in AFAS Profit.
 
